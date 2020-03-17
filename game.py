@@ -13,7 +13,7 @@ class Game:
     def get_members(self):
         member_list = []
         for i in range(len(self.members)):
-            member_list.append({"username": self.members[i].username, "color": Game.COLORS[i], "numberOfBalls": len(self.members[i].balls)})
+            member_list.append({"username": self.members[i].username, "color": Game.COLORS[i], "numberOfBalls": len(self.members[i].active_balls)})
         return member_list
 
     def get_usernames(self):

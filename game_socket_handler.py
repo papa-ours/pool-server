@@ -23,6 +23,7 @@ class GameSocketHandler:
             game, game_id = GameService.get_instance().get_game_for_user(request.sid)
             user = game.cancel_ball_entered(data["number"])
             emit("cancel_ball_entered_response", game.fills, room=game_id)
+            emit("game_players", game.get_members(), room=game_id)
             emit("ball_added", game.get_balls_for_user(user.username), room=user.sid)
 
         @socket.on("ball_entered")
