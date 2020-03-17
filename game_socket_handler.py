@@ -1,0 +1,19 @@
+from flask_socketio import SocketIO, emit, join_room, leave_room
+from flask import Flask, request, jsonify
+
+from game_service import GameService
+from user_service import UserService
+
+class GameSocketHandler:
+    @staticmethod
+    def add_handlers(socket):
+        @socket.on("get_balls")
+        def get_balls_for_user():
+            game = GameService.get_instance().get_game_for_user(request.sid)
+            emit("get_balls_response", game.get_balls_for_user(UserService.get_instance().get_user(request.sid).username))
+
+        @socket.on("ball_entered")
+        def ball_entered(data):
+            game = GameService.get_instance().get_game_for_user(request.sid)
+            game.ball_entered(int(data["number"]))
+            emit("ball_entered_response", game.fills)

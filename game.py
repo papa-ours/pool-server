@@ -1,0 +1,39 @@
+import random
+
+class Game:
+    BALL_PER_MEMBER = 5
+    COLORS = ["#0356fc", "#15bd42", "#de1818"]
+    def __init__(self, members):
+        self.members = members
+        self.balls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        self.fills = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+        self.distribute_balls()
+
+    def get_usernames(self):
+        return list(map(lambda user: user.username, self.members))
+
+    def has_member(self, username):
+        return username in self.get_usernames()
+
+    def get_user(self, username):
+        return self.members[self.members.index(username)]
+
+    def get_balls_for_user(self, username):
+        return self.get_user(username).balls
+
+    def distribute_balls(self):
+        for member in self.members:
+            sample = random.sample(self.balls, k=Game.BALL_PER_MEMBER)
+            for n in sample:
+                self.balls.pop(self.balls.index(n))
+            member.balls = sample
+
+    def member_index_with_ball(self, number):
+        index = 0
+        for member in self.members:
+            if number in member.balls:
+                return index
+            index = index + 1
+
+    def ball_entered(self, number):
+        self.fills[number - 1] = Game.COLORS[self.member_index_with_ball(number)]
