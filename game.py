@@ -8,6 +8,12 @@ class Game:
         self.balls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
         self.fills = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
         self.distribute_balls()
+    
+    def get_members(self):
+        member_list = []
+        for i in range(len(self.members)):
+            member_list.append({"username": self.members[i].username, "color": Game.COLORS[i], "numberOfBalls": len(self.members[i].balls)})
+        return member_list
 
     def get_usernames(self):
         return list(map(lambda user: user.username, self.members))
@@ -24,6 +30,7 @@ class Game:
     def distribute_balls(self):
         for member in self.members:
             sample = random.sample(self.balls, k=Game.BALL_PER_MEMBER)
+            sample.sort()
             for n in sample:
                 self.balls.pop(self.balls.index(n))
             member.balls = sample
@@ -36,4 +43,7 @@ class Game:
             index = index + 1
 
     def ball_entered(self, number):
-        self.fills[number - 1] = Game.COLORS[self.member_index_with_ball(number)]
+        member_index = self.member_index_with_ball(number)
+        self.fills[number - 1] = Game.COLORS[member_index]
+        self.members[member_index].balls.pop(self.members[member_index].balls.index(number))
+        return self.members[member_index]

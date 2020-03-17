@@ -14,4 +14,4 @@ class GameService(Singleton):
         for game_id in self.games:
             game = self.games[game_id]
             if game.has_member(user.username):
-                return game
+                return game, game_id

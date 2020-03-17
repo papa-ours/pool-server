@@ -65,7 +65,7 @@ class SocketHandler:
                 emit("find_game_response", {"lobbyId": lobby_id, "numberOfMembers": n_members}, room=lobby_id)
             UserService.get_instance().disconnect_user(request.sid)
 
-        @self._socket.on_error()        # Handles the default namespace
-        def error_handler(error):
-            print("Error " + str(error))
-            self._socket.emit("error", str(error))
+        # @self._socket.on_error()        # Handles the default namespace
+        # def error_handler(error):
+        #     print("Error " + str(error))
+        #     self._socket.emit("error", str(error))

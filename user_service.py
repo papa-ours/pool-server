@@ -1,9 +1,10 @@
 from singleton import Singleton
 
 class User:
-    def __init__(self, username):
+    def __init__(self, username, sid):
         self.username = username
         self.balls = []
+        self.sid = sid
     
     def __eq__(self, username):
         return self.username == username
@@ -24,7 +25,7 @@ class UserService(Singleton):
     def connect_user(self, sid, username):
         if sid in self.active_users or username in self.get_usernames():
             return False
-        self.active_users[sid] = User(username)
+        self.active_users[sid] = User(username, sid)
         return True
 
     def disconnect_user(self, sid):

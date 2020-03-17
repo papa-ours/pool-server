@@ -5,7 +5,7 @@ from game import Game
 from user_service import User
 
 class Lobby:
-    MAX_MEMBERS = 1
+    MAX_MEMBERS = 3
     def __init__(self, _id):
         self._id = _id
         self.members = []
