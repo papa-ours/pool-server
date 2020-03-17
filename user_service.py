@@ -4,6 +4,7 @@ class User:
     def __init__(self, username, sid):
         self.username = username
         self.balls = []
+        self.active_balls = []
         self.sid = sid
     
     def __eq__(self, username):

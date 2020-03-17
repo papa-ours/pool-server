@@ -1,4 +1,5 @@
 import random
+import copy
 
 class Game:
     BALL_PER_MEMBER = 5
@@ -25,7 +26,7 @@ class Game:
         return self.members[self.members.index(username)]
 
     def get_balls_for_user(self, username):
-        return self.get_user(username).balls
+        return self.get_user(username).active_balls
 
     def distribute_balls(self):
         for member in self.members:
@@ -33,7 +34,8 @@ class Game:
             sample.sort()
             for n in sample:
                 self.balls.pop(self.balls.index(n))
-            member.balls = sample
+            member.balls = copy.deepcopy(sample)
+            member.active_balls = copy.deepcopy(sample)
 
     def member_index_with_ball(self, number):
         index = 0
@@ -45,5 +47,22 @@ class Game:
     def ball_entered(self, number):
         member_index = self.member_index_with_ball(number)
         self.fills[number - 1] = Game.COLORS[member_index]
-        self.members[member_index].balls.pop(self.members[member_index].balls.index(number))
+        self.members[member_index].active_balls.pop(self.members[member_index].active_balls.index(number))
         return self.members[member_index]
+    
+    def cancel_ball_entered(self, number):
+        member_index = self.member_index_with_ball(number)
+        self.fills[number - 1] = ""
+        self.members[member_index].active_balls.append(number)
+        return self.members[member_index]
+
+    def remaining_balls_count(self):
+        count = 0
+        for member in self.members:
+            count = count + len(member.active_balls)
+        return count
+            
+    def get_winner(self):
+        for member in self.members:
+            if len(member.active_balls) > 0:
+                return member

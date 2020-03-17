@@ -15,3 +15,8 @@ class GameService(Singleton):
             game = self.games[game_id]
             if game.has_member(user.username):
                 return game, game_id
+
+    def end_game(self, game_id):
+        winner = self.games[game_id].get_winner()
+        del self.games[game_id]
+        return winner.username
