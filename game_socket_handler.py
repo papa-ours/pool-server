@@ -13,6 +13,11 @@ class GameSocketHandler:
             emit("get_balls_response", game.get_balls_for_user(UserService.get_instance().get_user(request.sid).username), room=request.sid)
             emit("game_players", game.get_members(), room=game_id)
 
+        @socket.on("get_players")
+        def get_players():
+            game, game_id = GameService.get_instance().get_game_for_user(request.sid)
+            emit("game_players", game.get_members(), room=request.sid)
+
         @socket.on("ball_entered")
         def ball_entered(data):
             game, game_id = GameService.get_instance().get_game_for_user(request.sid)
