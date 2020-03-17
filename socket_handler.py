@@ -7,8 +7,6 @@ from game_service import GameService
 from game_socket_handler import GameSocketHandler
 
 class SocketHandler:
-    _socket: SocketIO
-
     __instance = None
 
     def __init__(self, app: Flask = None):
