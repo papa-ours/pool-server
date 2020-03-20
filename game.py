@@ -2,7 +2,7 @@ import random
 import copy
 
 class Game:
-    BALL_PER_MEMBER = 3
+    BALL_PER_MEMBER = 5
     COLORS = ["#0356fc", "#15bd42", "#de1818"]
     def __init__(self, members):
         self.members = members
