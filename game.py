@@ -6,8 +6,10 @@ class Game:
     COLORS = ["#0356fc", "#15bd42", "#de1818"]
     def __init__(self, members):
         self.members = members
-        self.balls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-        self.fills = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+        # self.balls = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        # self.fills = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+        self.balls = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        self.fills = ["", "", "", "", "", "", "", "", ""]
         self.distribute_balls()
     
     def get_members(self):
